@@ -1,0 +1,40 @@
+#!/bin/bash
+
+usage="Usage: ptxt_1 -n <repeat_times> -t <timeout> -- <text>"
+
+if [[ ! $# -eq 6 ]]
+then
+  echo "Invalid number of arguments"
+  echo "$usage"
+  exit 2
+fi
+
+while [[ -n "$1" ]]
+do
+  case "$1" in
+  -n)
+    repeat_times="$2"
+    shift 2
+    ;;
+  -t)
+    timeout="$2"
+    shift 2
+    ;;
+  --)
+    text="$2"
+    shift 2
+    ;;
+  *)
+    echo "Invalid argument: $1"
+    echo "$usage"
+    exit 2
+    ;;
+  esac
+done
+
+while [[ $repeat_times -gt 0 ]]
+do
+  echo "$text"
+  sleep "$timeout"
+  ((repeat_times--))
+done

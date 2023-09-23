@@ -1,0 +1,35 @@
+#!/bin/bash
+
+usage="Usage: ptxt -n <repeat_times> -t <timeout> -- <text>"
+
+if [[ ! $# -eq 6 ]]
+then
+  echo "Invalid number of arguments"
+  echo "$usage"
+  exit 2
+fi
+
+declare -i repeat_times
+declare timeout
+declare text
+
+while getopts "n:t:" option; do
+  case "$option" in
+    n) repeat_times=$OPTARG ;;
+    t) timeout=$OPTARG ;;
+    *)
+      echo "Invalid argument: $option"
+      echo "$usage"
+      exit 2 ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+text=$1
+
+while [[ $repeat_times -gt 0 ]]
+do
+  echo "$text"
+  sleep "$timeout"
+  ((repeat_times--))
+done
