@@ -1,0 +1,4 @@
+Some cool, file to read
+ooops line break
+   and indent>!
+        and \ and \\. reading files is cool!
